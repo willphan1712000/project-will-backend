@@ -27,6 +27,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc --watch -p tsconfig.json",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "node --test",
     "prepublishOnly": "npm run build"
@@ -48,6 +51,8 @@
   "homepage": "https://github.com/willphan1712000/project-will-backend#readme",
   "devDependencies": {
     "@types/node": "^22.15.17",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.3",
     "typescript": "^5.8.3"
   }
 }
