@@ -1,4 +1,4 @@
-![will-avatar](will.png)
+<img style="width: 15%" src="./will.png" alt="Will frontend package logo">
 
 # `@willphan1712000/backend`
 Package module for reusable Node.js utilities for building robust and maintainable backend infrastructure.
