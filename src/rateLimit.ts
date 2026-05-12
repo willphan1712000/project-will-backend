@@ -5,12 +5,12 @@ import { type NextFunction, type Request, type Response } from 'express';
  * This function checks rate limit on each request. This should sit as a middleware function in the data pipeline for each request
  * - Config rate limit specifies the max number of requests a service has within a reset time
  * - Config reset time specifies the time window (seconds) when rate limit resets
- * 
+ *
  * @param getDevice method that gets a device info
  * @param createDevice method that creates a device with given info
  * @param updateDevice method that updates a device with given info
  * @param config object { rateLimit: the number of requests you want to restrict per session, resetTime: the time window from the last request until it resets in seconds }
- * 
+ *
  * @example
  * import { rateLimit } from '@willphan1712000/backend';
  * router.post('/route', [authMiddleware, rateLimit({ params })], controllerFunc);
