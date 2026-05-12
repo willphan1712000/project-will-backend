@@ -1,7 +1,6 @@
 {
   "name": "@willphan1712000/backend",
   "version": "0.1.0",
-  "description": "Will phan",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,9 +26,6 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc --watch -p tsconfig.json",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "prepare": "husky",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "node --test",
     "prepublishOnly": "npm run build"
@@ -50,9 +46,15 @@
   },
   "homepage": "https://github.com/willphan1712000/project-will-backend#readme",
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^22.15.17",
     "husky": "^9.1.7",
+    "lint-staged": "^17.0.3",
     "prettier": "^3.8.3",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.20",
+    "express": "^5.2.1"
   }
 }
