@@ -1,9 +1,10 @@
 {
   "name": "@willphan1712000/backend",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
   "private": false,
   "publishConfig": {
     "access": "public",
@@ -12,9 +13,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs"
     }
   },
   "files": [
@@ -26,11 +27,9 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "dev": "tsc --watch -p tsconfig.json",
-    "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "node --test",
-    "prepublishOnly": "npm run build"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -53,6 +52,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.3",
     "prettier": "^3.8.3",
+    "tsup": "^8.5.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {
