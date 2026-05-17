@@ -18,11 +18,11 @@ import { type NextFunction, type Request, type Response } from 'express';
 export default function rateLimit(
     getDevice: (
         id: string,
-        ip: string | undefined
+        ip: string
     ) => Promise<{ rate: number; date?: number | null } | undefined>,
     createDevice: (
         id: string,
-        ip: string | undefined,
+        ip: string,
         rate: number,
         date?: number | null
     ) => Promise<{ rate: number; date?: number | null }>,
@@ -38,6 +38,8 @@ export default function rateLimit(
     }
 ) {
     const error = 'You have passed our rate limit. Please try again later.';
+    const defaultIp = '127.0.0.1';
+
     return async (req: Request, res: Response, next: NextFunction) => {
         const id = req.body.deviceId as string | undefined;
         if (!id)
@@ -46,10 +48,10 @@ export default function rateLimit(
                 .json({ success: false, error: 'There is no device id' });
 
         const ip = req.ip;
-        const device = await getDevice(id, ip);
+        const device = await getDevice(id, ip ?? defaultIp);
 
         if (!device) {
-            await createDevice(id, ip ?? '127.0.0.1', 1, null);
+            await createDevice(id, ip ?? defaultIp, 1, null);
             return next();
         }
 
@@ -57,7 +59,7 @@ export default function rateLimit(
 
         if (date && date !== 0) {
             if (dayjs().unix() - date >= config.resetTime) {
-                await updateDevice(id, ip ?? '127.0.0.1', 1, null);
+                await updateDevice(id, ip ?? defaultIp, 1, null);
                 return next();
             } else
                 return res.status(429).json({
@@ -67,9 +69,9 @@ export default function rateLimit(
         }
 
         if (rate < config.rateLimit) {
-            await updateDevice(id, ip ?? '127.0.0.1', rate + 1, null);
+            await updateDevice(id, ip ?? defaultIp, rate + 1, null);
         } else {
-            await updateDevice(id, ip ?? '127.0.0.1', rate, dayjs().unix());
+            await updateDevice(id, ip ?? defaultIp, rate, dayjs().unix());
             return res.status(429).json({
                 success: false,
                 error,
